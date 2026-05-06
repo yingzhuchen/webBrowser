@@ -363,13 +363,10 @@ class DomService:
 			)
 			ax_tree_requests.append(ax_tree_request)
 
-		# Wait for all requests to complete. Use return_exceptions=True so a single
-		# detached frame (TOCTOU race with ad/widget iframes between Page.getFrameTree
-		# and Accessibility.getFullAXTree) doesn't discard AX data from every other
-		# frame, including the main document. See #4778.
+		# return_exceptions=True so a single frame detaching mid-request (e.g. ad iframes)
+		# doesn't discard AX data from every other frame, including the main document.
 		ax_trees = await asyncio.gather(*ax_tree_requests, return_exceptions=True)
 
-		# Merge all AX nodes into a single array, skipping frames that failed.
 		merged_nodes: list[AXNode] = []
 		for frame_id, ax_tree in zip(all_frame_ids, ax_trees):
 			if isinstance(ax_tree, BaseException):
