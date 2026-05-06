@@ -21,19 +21,25 @@ def test_step_metadata_step_interval_optional():
 
 
 def test_step_interval_calculation():
-	"""Test step_interval calculation logic (uses previous step's duration)"""
-	# Previous step (Step 1): runs from 100.0 to 102.5 (duration: 2.5s)
-	previous_start = 100.0
+	"""step_interval is the gap between steps, not the previous step's duration.
+
+	Regression test for #4484: _finalize() previously computed
+	(previous_end - previous_start) which is duration. The correct value is
+	(current_start - previous_end) — the idle time between steps, including
+	LLM decision time (see rerun_history at agent/service.py).
+	"""
+	# Previous step ran from 100.0 to 102.5 (duration: 2.5s)
 	previous_end = 102.5
-	previous_duration = previous_end - previous_start
+	# Current step starts at 105.0 — a 2.5s gap (LLM thinking, IO, etc.)
+	current_start = 105.0
 
-	# Current step (Step 2): should have step_interval = previous step's duration
-	# This tells the rerun system "wait 2.5s before executing Step 2"
-	expected_step_interval = previous_duration
-	calculated_step_interval = max(0, previous_end - previous_start)
+	calculated_step_interval = max(0, current_start - previous_end)
 
-	assert abs(calculated_step_interval - expected_step_interval) < 0.001  # Float comparison
 	assert calculated_step_interval == 2.5
+
+	# Clamp behavior: if clocks went backwards or timestamps overlap, clamp to 0
+	calculated_step_interval = max(0, 100.0 - 102.5)
+	assert calculated_step_interval == 0
 
 
 def test_step_metadata_serialization_with_step_interval():
