@@ -28,6 +28,7 @@ def test_chrome_profile_copy_skips_transient_lock_files(tmp_path: Path) -> None:
 		headless=True,
 	)
 
+	assert browser_profile.user_data_dir is not None
 	temp_user_data_dir = Path(browser_profile.user_data_dir)
 	try:
 		assert (temp_user_data_dir / 'Default' / 'Preferences').read_text() == '{"profile": "default"}'
