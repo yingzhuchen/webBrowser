@@ -74,7 +74,13 @@ Direct the user to set the key themselves in their project's `.env`, and just as
    ```
 3. Ask them to share their wallet's **public address** for confirmation. Verify it's a valid EVM address (`^0x[0-9a-fA-F]{40}$`) and display it back.
 
-If they paste a private key directly into the chat instead, just take it — validate format (`^0x[0-9a-fA-F]{64}$`), save to `.env`, derive the address for confirmation, and continue.
+**If they paste a private key directly into chat: do not process it.** Chat transcripts persist in logs, sync to backups, and may be seen by future model training pipelines. Instead:
+
+1. Tell them the key is now compromised — anything in chat must be treated as leaked.
+2. Have them rotate immediately: drain whatever's in that wallet to a new one and stop using the pasted key.
+3. Restart Path A with the **new** key: they put it in `.env` themselves, then share only the **public address** for confirmation.
+
+Never echo, hash, derive from, or write a chat-pasted private key to disk.
 
 ### Path B — Walk them through setting up a wallet
 
@@ -204,7 +210,19 @@ asyncio.run(main())
 
 If the installed `x402` version doesn't accept `max_value` on `x402HttpxClient`, fall back to using our SDK (`AsyncBrowserUse()`) — but **tell the user first** that this will cost $5 instead of $1, and re-confirm before running.
 
-**For Mode B (top-up)**, the API key only matters when going through our SDK. For the $1 raw-client verification above, omit it; once verified, switch to the SDK with both `api_key` and `x402_private_key` for real use:
+**For Mode B (top-up):** the verification above must also send the existing API key, otherwise the $1 lands in a brand-new wallet-derived project instead of the one the user is actually trying to top up. Add a `headers=` arg to the `x402HttpxClient` call:
+
+```python
+async with x402HttpxClient(
+    client,
+    max_value=Decimal("1.5"),
+    timeout=180.0,
+    headers={"X-Browser-Use-API-Key": os.environ["BROWSER_USE_API_KEY"]},
+) as http:
+    ...
+```
+
+Once verified, switch to the SDK for real use — it forwards both credentials automatically:
 
 ```python
 client = AsyncBrowserUse(
@@ -237,6 +255,8 @@ Both SDKs auto-detect `BROWSER_USE_X402_PRIVATE_KEY` from env.
 - **Add `.env` to `.gitignore`** before writing keys. Verify first.
 - **Confirm `.env` location** if ambiguous (project root vs cwd).
 - **Never spend the user's USDC without explicit consent.** Step 4 must always pause for permission before running, explain that it costs $1, and accept a custom task or a "skip verification" response.
+- **Never accept a private key pasted in chat.** Refuse to process it, tell the user it's now compromised, have them rotate, and restart with the new key written to `.env` by their own hand.
+- **In Mode B (top-up), the verification request must include `X-Browser-Use-API-Key`.** Without it, the $1 settles into a fresh wallet-derived project instead of the API key's project — exactly what top-up mode is meant to prevent.
 - **If you can't force a $1 charge** (e.g. installed `x402` lib doesn't support `max_value`), tell the user the verification will instead cost $5 and re-confirm before running.
 - **Python <3.10:** the `[x402]` extra won't install. Tell the user to upgrade Python or use the free-tier path (`browser-use cloud signup`).
 - **Wallets hold real money.** Anyone with the private key can drain them. Tell the user to keep keys out of source control, logs, and screenshots, and to only fund with what they're okay losing if something leaked.
