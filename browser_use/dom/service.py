@@ -34,6 +34,17 @@ if TYPE_CHECKING:
 _MAX_JS_CLICK_LISTENER_ELEMENTS = 100
 _DESCRIBE_NODE_BATCH_SIZE = 20
 _JS_CLICK_LISTENER_OVERFLOW = '__browser_use_too_many_click_listeners__'
+_MIN_CROSS_ORIGIN_IFRAME_AREA = 50 * 50
+_MIN_CROSS_ORIGIN_IFRAME_EDGE = 10
+
+
+def _is_cross_origin_iframe_size_eligible(width: float, height: float) -> bool:
+	"""Keep tiny tracking frames out while allowing input-shaped hosted fields."""
+	return (
+		width >= _MIN_CROSS_ORIGIN_IFRAME_EDGE
+		and height >= _MIN_CROSS_ORIGIN_IFRAME_EDGE
+		and width * height >= _MIN_CROSS_ORIGIN_IFRAME_AREA
+	)
 
 
 class DomService:
@@ -958,7 +969,9 @@ class DomService:
 						f'Skipping iframe at depth {iframe_depth} to prevent infinite recursion (max depth: {self.max_iframe_depth})'
 					)
 				else:
-					# Check if iframe is visible and large enough (>= 50px in both dimensions)
+					# Check if the iframe is visible and large enough to contain an interactive control.
+					# Use area rather than requiring both edges to be >= 50px: hosted payment fields
+					# are commonly wide but only ~40px tall.
 					should_process_iframe = False
 
 					# First check if the iframe element itself is visible
@@ -969,13 +982,14 @@ class DomService:
 							width = bounds.width
 							height = bounds.height
 
-							# Only process if iframe is at least 50px in both dimensions
-							if width >= 50 and height >= 50:
+							if _is_cross_origin_iframe_size_eligible(width, height):
 								should_process_iframe = True
 								self.logger.debug(f'Processing cross-origin iframe: visible=True, width={width}, height={height}')
 							else:
 								self.logger.debug(
-									f'Skipping small cross-origin iframe: width={width}, height={height} (needs >= 50px)'
+									f'Skipping small cross-origin iframe: width={width}, height={height} '
+									f'(needs >= {_MIN_CROSS_ORIGIN_IFRAME_AREA}px² area and '
+									f'>= {_MIN_CROSS_ORIGIN_IFRAME_EDGE}px per edge)'
 								)
 						else:
 							self.logger.debug('Skipping cross-origin iframe: no bounds available')
