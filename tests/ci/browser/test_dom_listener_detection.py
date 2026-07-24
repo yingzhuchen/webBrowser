@@ -111,3 +111,23 @@ async def test_screenshot_timeout_preserves_structural_dom(httpserver, browser_s
 	assert state.screenshot is None
 	assert state.dom_state is not None
 	assert any(node.attributes.get('id') == 'continue' for node in state.dom_state.selector_map.values())
+
+
+async def test_whole_state_timeout_does_not_reuse_cached_actionable_dom(httpserver, browser_session: BrowserSession, monkeypatch):
+	"""A whole-state timeout must not expose selectors from an earlier page state."""
+	httpserver.expect_request('/cached-state').respond_with_data(
+		'<html><body><button id="continue">Continue</button></body></html>',
+		content_type='text/html',
+	)
+	await browser_session.navigate_to(httpserver.url_for('/cached-state'))
+	initial_state = await browser_session.get_browser_state_summary(include_screenshot=False)
+	assert initial_state.dom_state.selector_map
+
+	class TimedOutStateEvent:
+		async def event_result(self, **_kwargs):
+			raise TimeoutError
+
+	monkeypatch.setattr(browser_session.event_bus, 'dispatch', lambda _event: TimedOutStateEvent())
+
+	with pytest.raises(TimeoutError):
+		await browser_session.get_browser_state_summary(include_screenshot=True)
