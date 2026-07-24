@@ -116,9 +116,6 @@ class TestCrossOriginIframeSizeEligibility:
 		"""Area alone must not admit a one-pixel tracking iframe."""
 		assert _is_cross_origin_iframe_size_eligible(width=1, height=2500) is False
 
-	def test_accepts_small_interactive_frame(self):
-		assert _is_cross_origin_iframe_size_eligible(width=16, height=16) is True
-
-	def test_rejects_frames_below_the_area_or_edge_floor(self):
-		assert _is_cross_origin_iframe_size_eligible(width=15, height=15) is False
-		assert _is_cross_origin_iframe_size_eligible(width=7, height=100) is False
+	def test_preserves_previous_minimum_area(self):
+		assert _is_cross_origin_iframe_size_eligible(width=50, height=50) is True
+		assert _is_cross_origin_iframe_size_eligible(width=49, height=49) is False

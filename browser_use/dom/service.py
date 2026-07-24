@@ -34,8 +34,8 @@ if TYPE_CHECKING:
 _MAX_JS_CLICK_LISTENER_ELEMENTS = 100
 _DESCRIBE_NODE_BATCH_SIZE = 20
 _JS_CLICK_LISTENER_OVERFLOW = '__browser_use_too_many_click_listeners__'
-_MIN_CROSS_ORIGIN_IFRAME_AREA = 16 * 16
-_MIN_CROSS_ORIGIN_IFRAME_EDGE = 8
+_MIN_CROSS_ORIGIN_IFRAME_AREA = 50 * 50
+_MIN_CROSS_ORIGIN_IFRAME_EDGE = 10
 
 
 def _is_cross_origin_iframe_size_eligible(width: float, height: float) -> bool:
