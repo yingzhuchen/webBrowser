@@ -6,7 +6,7 @@ node must not be transformed by its own bounds when it appears in its own
 frame chain (as built by _construct_enhanced_node).
 """
 
-from browser_use.dom.service import DomService
+from browser_use.dom.service import DomService, _is_cross_origin_iframe_size_eligible
 from browser_use.dom.views import DOMRect, EnhancedDOMTreeNode, EnhancedSnapshotNode, NodeType
 
 
@@ -101,3 +101,21 @@ class TestVisibilityDoesNotMutateBounds:
 		assert visible is True
 		assert iframe.snapshot_node is not None and iframe.snapshot_node.bounds is not None
 		assert iframe.snapshot_node.bounds.y == 1200
+
+
+class TestCrossOriginIframeSizeEligibility:
+	def test_accepts_wide_secure_card_field(self):
+		"""Hosted card fields are often only 40px tall but have enough area to be interactive."""
+		assert _is_cross_origin_iframe_size_eligible(width=250, height=40) is True
+
+	def test_accepts_compact_secure_cvv_field(self):
+		"""A compact CVV frame must not be dropped solely because both edges are below 50px."""
+		assert _is_cross_origin_iframe_size_eligible(width=90, height=40) is True
+
+	def test_rejects_tiny_tracking_frame(self):
+		"""Area alone must not admit a one-pixel tracking iframe."""
+		assert _is_cross_origin_iframe_size_eligible(width=1, height=2500) is False
+
+	def test_preserves_previous_minimum_area(self):
+		assert _is_cross_origin_iframe_size_eligible(width=50, height=50) is True
+		assert _is_cross_origin_iframe_size_eligible(width=49, height=49) is False
