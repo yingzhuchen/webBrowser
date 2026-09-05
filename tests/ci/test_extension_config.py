@@ -144,7 +144,8 @@ class TestConfigEnvVars:
 		load_browser_use_config()
 		stored = json.loads(config_path.read_text())
 		if persisted is not None:
-			next(iter(stored['browser_profile'].values()))['disable_security'] = persisted
+			default_profile = next(profile for profile in stored['browser_profile'].values() if profile.get('default'))
+			default_profile['disable_security'] = persisted
 			config_path.write_text(json.dumps(stored))
 		if env_value is not None:
 			monkeypatch.setenv('BROWSER_USE_DISABLE_SECURITY', env_value)
