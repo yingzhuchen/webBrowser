@@ -24,10 +24,10 @@ from browser_use_sdk.v4 import BrowserUse
 
 with BrowserUse() as client:
     created = client.runs.create(
-        "Open https://example.com and return its title", max_cost_usd=0.10
+        "Open https://example.com and return its title", max_cost_usd=1.00
     )
     run = client.runs.wait_for_completion(created.id)
-    if run.status != "completed":
+    if run.status.value != "completed":
         raise RuntimeError(f"Run {run.id}: {run.status}")
     print(run.result)
 ```
@@ -40,7 +40,7 @@ import { BrowserUse } from "browser-use-sdk/v4";
 const client = new BrowserUse();
 const created = await client.runs.create({
   task: "Open https://example.com and return its title",
-  maxCostUsd: 0.10,
+  maxCostUsd: 1.00,
 });
 const run = await client.runs.waitForCompletion(created.id);
 if (run.status !== "completed") {
