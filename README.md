@@ -64,11 +64,11 @@ https://github.com/user-attachments/assets/485fd3ec-61b9-4afc-9e86-ee9b85acb592
 
 # Start with Browser Use Cloud
 
-Eligible new Google, GitHub, or Microsoft signups receive a one-time $15 Cloud credit. No credit card is required. Email/password signups are not eligible; the credit does not renew. Start with the default V4 model (`gpt-5.6-luna`); paid-only models require a top-up. See [pricing](https://browser-use.com/pricing.md) for current eligibility and rates.
+Eligible new Google, GitHub or Microsoft signups get a one-time **$15 Cloud credit**. No card required; email/password signups do not qualify. [Pricing and eligibility](https://browser-use.com/pricing.md).
 
-- **Give a task to a hosted agent:** use the [V4 Cloud SDK quickstart](https://docs.browser-use.com/cloud/agent/quickstart). Install `browser-use-sdk`, then call `client.runs.create`.
-- **Bring your own agent or automation:** use the [managed browser quickstart](https://docs.browser-use.com/cloud/browser/quickstart) for SDK or CDP control.
-- **Run and customize the framework locally:** use the Python library below. The `browser-use` package has a different API from the Cloud SDK.
+- **Hosted agent:** [V4 quickstart](https://docs.browser-use.com/cloud/agent/quickstart), using `browser-use-sdk`.
+- **Your own agent:** [Managed browser quickstart](https://docs.browser-use.com/cloud/browser/quickstart).
+- **Local framework:** the `browser-use` Python library below.
 
 # Quickstart
 
