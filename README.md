@@ -61,7 +61,7 @@ Find an available slot, pick a date and time, handle the CAPTCHA, and book a dri
 </picture>
 
 - **[Path 1: Fully Hosted Cloud](#path-1-fully-hosted-cloud):** Send a task through the API; we run the agent and browser.
-- **[Path 2: CLI](#path-2-cli):** Give Claude Code, Codex, OpenCode, Pi, or another agent browser access.
+- **[Path 2: CLI](#path-2-cli):** Give Claude Code, Codex, Hermes, OpenClaw, OpenCode, Pi, or another agent browser access.
 - **[Path 3: Python Library](#path-3-python-library):** Run the open source Browser Use agent locally from your own code.
 
 # Quickstart
@@ -78,7 +78,7 @@ New Google, GitHub, or Microsoft signups get **$15 cloud credit**.
 
 ## Path 2: CLI
 
-If you want to use Browser Use in your agent (Claude Code, Codex, OpenCode, Pi, Cursor, Hermes, OpenClaw, etc.), paste this prompt, and it sets everything up itself:
+If you want to use Browser Use in your agent (Claude Code, Codex, Hermes, OpenClaw, OpenCode, Pi, Cursor, etc.), paste this prompt, and it sets everything up itself:
 
 ```text
 Install or upgrade browser-use to the latest stable version with uv using Python 3.12, run `browser-use skill install` to register the skill, and connect it to my browser. If setup or connection fails, follow https://github.com/browser-use/browser-harness/blob/main/install.md.
@@ -94,9 +94,10 @@ Run the Browser Use agent locally from Python, with your choice of model and a l
 
 **1. Install Browser Use (Python >= 3.11):**
 
+With [uv](https://docs.astral.sh/uv/getting-started/installation/) installed, run `uv init --python 3.12` first if you're starting a new project.
+
 ```bash
 uv add browser-use
-# or: pip install browser-use
 ```
 
 **2. Add your [OpenAI API key](https://platform.openai.com/api-keys) to `.env`:**
@@ -104,28 +105,45 @@ uv add browser-use
 ```bash
 # .env
 OPENAI_API_KEY=your-key
+# BROWSER_USE_API_KEY=your-key  # Optional: BU2 model or cloud browser
 ```
 
-**3. Run your first agent:**
+For either optional Browser Use service, get a [Browser Use API key](https://cloud.browser-use.com/new-api-key).
+
+**3. Save this as `agent.py`:**
 
 ```python
 import asyncio
 
-from browser_use import Agent, ChatOpenAI
+from browser_use import Agent, Browser, ChatBrowserUse, ChatOpenAI
 from dotenv import load_dotenv
 
 load_dotenv()
 
 async def main():
+    llm = ChatOpenAI(model='gpt-5.6-luna', reasoning_effort='xhigh')
+    # llm = ChatBrowserUse(model='bu-2-0')  # Use BU2 instead; requires BROWSER_USE_API_KEY
     agent = Agent(
         task="Find the number of stars of the browser-use repo",
-        llm=ChatOpenAI(model='gpt-5.6-luna', reasoning_effort='xhigh'),
+        llm=llm,
+        # browser=Browser(use_cloud=True),  # Use a cloud browser; requires BROWSER_USE_API_KEY
     )
     history = await agent.run()
+    print(history.final_result())
 
 if __name__ == "__main__":
     asyncio.run(main())
 ```
+
+To use BU2, replace the `ChatOpenAI` line with the commented `ChatBrowserUse` line. The cloud-browser option works with either model.
+
+**4. Run it:**
+
+```bash
+uv run agent.py
+```
+
+The agent opens a browser, looks up the repository, and prints its answer.
 
 [Python library docs ↗](https://docs.browser-use.com/open-source/introduction)
 
@@ -144,33 +162,27 @@ This [very hard benchmark](https://github.com/browser-use/benchmark) targets the
 # FAQ
 
 <details>
-<summary><b>Should I use the CLI vs. the Python library?</b></summary>
+<summary><b>Should I use the fully hosted cloud, CLI, or Python library?</b></summary>
 
-**Use the CLI** if you already have an agent (Claude Code, Codex, OpenCode, Pi, Cursor, Hermes, OpenClaw, etc.) that you want to complete browser tasks for you. The agent installs the skill once (see [CLI quickstart](#path-2-cli)) and can then control the browser. Examples:
-- "Upload this video to YouTube"
-- "Compare these three laptops and give me a table with prices"
-- "Fill in this job application with my resume"
+- **[Fully Hosted Cloud](#path-1-fully-hosted-cloud):** Send tasks through the API and let Browser Use run the agent, browser, and infrastructure.
+- **[CLI](#path-2-cli):** Give an existing agent (Claude Code, Codex, Hermes, OpenClaw, OpenCode, Pi, Cursor, etc.) browser access. You can use it interactively or in scripts.
+- **[Python Library](#path-3-python-library):** Run the open source agent in your own application, with custom tools, structured output, and your choice of model.
 
-**Use the Python library** when you are building software that automates the web. Examples:
-- Run many tasks on a schedule or in parallel (scraping, monitoring, QA)
-- Embed a browser agent into your own product
-- Custom tools, custom system prompts, structured output, fine-grained browser control
-
-Rule of thumb: one-off tasks through an agent → CLI. Repeatable automation in code → Python library.
+The CLI and Python library can each connect to a local or cloud browser. A cloud browser hosts the browser; the fully hosted API runs the agent as well.
 </details>
 
 <details>
 <summary><b>What's the best model to use?</b></summary>
 
-We optimized **ChatBrowserUse()** specifically for browser automation tasks. On avg it completes tasks 3-5x faster than other models with SOTA accuracy.
+We recommend **BU2**, our model optimized for browser automation: `ChatBrowserUse(model='bu-2-0')`. It uses `BROWSER_USE_API_KEY`; `ChatBrowserUse()` currently selects the same model.
 
-For pricing and other LLM providers, see our [supported models documentation](https://docs.browser-use.com/supported-models).
+The best choice depends on your tasks, latency, and budget. See the [BU2 model card](https://docs.browser-use.com/open-source/bu-2-0-model-card), [benchmark](https://github.com/browser-use/benchmark), and [supported models and pricing](https://docs.browser-use.com/open-source/supported-models) to compare options.
 </details>
 
 <details>
 <summary><b>Can I use Claude / GPT / Gemini through ChatBrowserUse?</b></summary>
 
-Yes. `ChatBrowserUse` accepts provider-prefixed model ids, so a single `BROWSER_USE_API_KEY` reaches all of them — no separate OpenAI/Anthropic/Google keys required:
+Yes. `ChatBrowserUse` accepts provider-prefixed model IDs through the Browser Use gateway, using `BROWSER_USE_API_KEY`:
 
 ```python
 from browser_use import Agent, ChatBrowserUse
@@ -179,39 +191,47 @@ llm = ChatBrowserUse(model='anthropic/claude-sonnet-4-6')  # or 'google/gemini-3
 agent = Agent(task='...', llm=llm)
 ```
 
-For the best speed and cost we still recommend the default `bu-*` models.
+You can also use providers directly through wrappers such as `ChatOpenAI`, `ChatAnthropic`, and `ChatGoogle`, with each provider's own API key. See [supported models](https://docs.browser-use.com/open-source/supported-models).
 </details>
 
 <details>
-<summary><b>Should I use the Browser Use system prompt with the open-source preview model?</b></summary>
+<summary><b>Do I need to provide a system prompt?</b></summary>
 
-Yes. If you use `ChatBrowserUse(model='browser-use/bu-30b-a3b-preview')` with a normal `Agent(...)`, Browser Use still sends its default agent system prompt for you.
+No. `Agent(...)` supplies the Browser Use system prompt automatically, including when you change models. Put your task in `task=`. Use `extend_system_message` to add instructions or `override_system_message` to replace the default prompt when you need custom behavior.
 
-You do **not** need to add a separate custom "Browser Use system message" just because you switched to the open-source preview model. Only use `extend_system_message` or `override_system_message` when you intentionally want to customize the default behavior for your task.
-
-If you want the best default speed/accuracy, we still recommend the newer hosted `bu-*` models. If you want the open-source preview model, the setup stays the same apart from the `model=` value.
+See the [custom system prompt example](https://github.com/browser-use/browser-use/blob/main/examples/features/custom_system_prompt.py).
 </details>
 
 <details>
 <summary><b>Can I use custom tools with the agent?</b></summary>
 
-Yes! You can add custom tools to extend the agent's capabilities:
+Yes. Register a function with `Tools` and pass it to the agent. This example adds a tool for the current UTC time and uses `BROWSER_USE_API_KEY` from `.env`:
 
 ```python
-from browser_use import Tools
+import asyncio
+from datetime import datetime, timezone
 
+from browser_use import ActionResult, Agent, ChatBrowserUse, Tools
+from dotenv import load_dotenv
+
+load_dotenv()
 tools = Tools()
 
-@tools.action(description='Description of what this tool does.')
-def custom_tool(param: str) -> str:
-    return f"Result: {param}"
+@tools.action(description='Get the current date and time in UTC.')
+def get_current_time() -> ActionResult:
+    return ActionResult(extracted_content=datetime.now(timezone.utc).isoformat())
 
-agent = Agent(
-    task="Your task",
-    llm=llm,
-    browser=browser,
-    tools=tools,
-)
+async def main():
+    agent = Agent(
+        task="What is the current UTC time?",
+        llm=ChatBrowserUse(model='bu-2-0'),
+        tools=tools,
+    )
+    history = await agent.run()
+    print(history.final_result())
+
+if __name__ == "__main__":
+    asyncio.run(main())
 ```
 
 </details>
@@ -219,7 +239,7 @@ agent = Agent(
 <details>
 <summary><b>Can I use this for free?</b></summary>
 
-Yes! Browser-Use is open source and free to use. You only need to choose an LLM provider (like OpenAI, Google, ChatBrowserUse, or run local models with Ollama).
+The Python library is free and [MIT-licensed](LICENSE). Model inference and hosted browsers are separate: API providers, including `ChatBrowserUse`, and Browser Use Cloud charge for usage. You can also use a local browser and a local model through [Ollama](https://docs.browser-use.com/open-source/supported-models#ollama), subject to your hardware and model requirements.
 </details>
 
 <details>
@@ -231,31 +251,29 @@ This open-source library is licensed under the MIT License. For Browser Use serv
 <details>
 <summary><b>How do I handle authentication?</b></summary>
 
-Check out our authentication examples:
-- [Using real browser profiles](https://github.com/browser-use/browser-use/blob/main/examples/browser/real_browser.py) - Reuse your existing Chrome profile with saved logins
-- If you want to use temporary accounts with inbox, choose AgentMail
-- To sync your auth profile with a remote browser, install `profile-use` for your platform from the [official releases](https://github.com/browser-use/profile-use-releases/releases/latest), then follow the [profile sync guide](https://github.com/browser-use/browser-harness/blob/main/interaction-skills/profile-sync.md).
+- **Local browser:** Use `Browser.from_system_chrome()` to reuse a Chrome profile. See the [real-browser guide](https://docs.browser-use.com/open-source/customize/browser/real-browser) and [example](https://github.com/browser-use/browser-use/blob/main/examples/browser/real_browser.py).
+- **Cloud browser:** Follow the [profile sync guide](https://github.com/browser-use/browser-harness/blob/main/interaction-skills/profile-sync.md), then use `Browser(use_cloud=True, cloud_profile_id='your-profile-id')`.
 
-These examples show how to maintain sessions and handle authentication seamlessly.
+Profile sync transfers cookies, not local storage, IndexedDB, or extensions. Some sites may require you to sign in again.
 </details>
 
 <details>
 <summary><b>How do I solve CAPTCHAs?</b></summary>
 
-For CAPTCHA handling, you need better browser fingerprinting and proxies. Use [Browser Use Cloud](https://cloud.browser-use.com?utm_source=github&utm_medium=readme-faq-captcha) which provides stealth browsers designed to avoid detection and CAPTCHA challenges.
+[Browser Use Cloud](https://docs.browser-use.com/cloud/browser/quickstart) provides stealth browsers and proxies designed to reduce bot detection and CAPTCHA challenges. With the Python library, enable a cloud browser with `Browser(use_cloud=True)` and set `BROWSER_USE_API_KEY`.
+
+Results depend on the site and challenge; no browser configuration guarantees that every CAPTCHA can be avoided or solved.
 </details>
 
 <details>
 <summary><b>How do I go into production?</b></summary>
 
-Chrome can consume a lot of memory, and running many agents in parallel can be tricky to manage.
+Choose how much you want to manage:
 
-For production use cases, use our [Browser Use Cloud API](https://cloud.browser-use.com?utm_source=github&utm_medium=readme-faq-production) which handles:
-- Scalable browser infrastructure
-- Memory management
-- Proxy rotation
-- Stealth browser fingerprinting
-- High-performance parallel execution
+- **Keep your agent code:** Connect the CLI or Python library to [cloud browsers](https://docs.browser-use.com/cloud/browser/quickstart) for managed browser infrastructure, stealth, profiles, and recordings.
+- **Have us run the agent too:** Use the [fully hosted Cloud API](https://docs.browser-use.com/cloud/agent/quickstart) to submit tasks and retrieve results.
+
+You can also host the Python library and browsers on your own infrastructure.
 </details>
 
 <br/>
