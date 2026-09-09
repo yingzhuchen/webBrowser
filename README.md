@@ -37,42 +37,81 @@
 <a href="https://cloud.browser-use.com?utm_source=github&utm_medium=readme-badge-cloud"><img src="https://media.browser-use.tools/badges/cloud" height="48" alt="Browser-Use Cloud"></a>
 </div>
 
-</br>
+<br/>
 
 # What can Browser Use do?
 
-Browser Use lets an AI agent use a web browser the same way humans do — it opens pages, clicks buttons, types, and fills in forms. You describe the task, and it completes it. For example, you can have it:
+Browser Use gives AI agents a browser. Describe a task, and the agent navigates websites, fills forms, and gets the work done.
 
+### Book a driving test
 
-### 📋 Fill Forms
-#### Task: "Fill in this job application with my resume and information."
+Find an available slot, handle the CAPTCHA, and schedule the test with Browser Use V4.
 
-![Job Application Demo](https://github.com/user-attachments/assets/57611d8e-0474-4de6-84b7-37a0c0cd27e7)
+[![Johannes's Browser Use V4 driving-test booking demo](static/readme/driving-test.jpg)](https://x.com/mathisdittrich/status/2078619618265141560)
 
-[Example code ↗](https://github.com/browser-use/browser-use/blob/main/examples/use-cases/apply_to_job.py)
+[Watch Johannes's demo ↗](https://x.com/mathisdittrich/status/2078619618265141560)
 
-
-### 🍎 Extract data
-#### Task: "Extract structured data about my followers and export it as a CSV."
-
-https://github.com/user-attachments/assets/485fd3ec-61b9-4afc-9e86-ee9b85acb592
-
-[Browser Use Cloud Docs ↗](https://docs.browser-use.com/cloud/quickstart)
-
+[Explore more demos and prompts ↗](https://browser-use.com/showcase)
 
 <br/>
 
-# Start with Browser Use Cloud
+# Which Browser Use do I need?
+
+<table>
+  <tr>
+    <td width="32%" valign="middle">
+      <a href="#quickstart"><img src="static/readme/local-agent.jpg" alt="A white monolith opened like a book, with people walking in" width="100%"></a>
+    </td>
+    <td width="68%" valign="top">
+      <h3>Your agent, your browser</h3>
+      <p>Connect your coding agent with the CLI, or build automation with the Python library.</p>
+      <a href="#quickstart">Start locally ↗</a>
+    </td>
+  </tr>
+  <tr>
+    <td width="32%" valign="middle">
+      <a href="https://docs.browser-use.com/cloud/browser/quickstart"><img src="static/readme/cloud-browsers.jpg" alt="A key-shaped bridge across a canyon" width="100%"></a>
+    </td>
+    <td width="68%" valign="top">
+      <h3>Your agent, our browsers</h3>
+      <p>Connect your agent to cloud browsers with stealth, proxies, and saved profiles.</p>
+      <a href="https://docs.browser-use.com/cloud/browser/quickstart">Connect a cloud browser ↗</a>
+    </td>
+  </tr>
+  <tr>
+    <td width="32%" valign="middle">
+      <a href="https://docs.browser-use.com/cloud/agent/quickstart"><img src="static/readme/hosted-agent.jpg" alt="A hand holding a magnifier over glass carriages carrying cities" width="100%"></a>
+    </td>
+    <td width="68%" valign="top">
+      <h3>Our agent, our cloud</h3>
+      <p>Send a task to V4. We run the agent, browser, and infrastructure.</p>
+      <a href="https://docs.browser-use.com/cloud/agent/quickstart">Run a hosted task ↗</a>
+    </td>
+  </tr>
+</table>
+
+<picture>
+  <source media="(prefers-color-scheme: dark)" srcset="static/readme/which-product-dark.svg">
+  <img alt="Choose your agent, CLI, and browser: local agents can use real Chrome or cloud browsers; hosted V4 runs the full stack. Profile Sync is a separate step." src="static/readme/which-product-light.svg" width="100%">
+</picture>
+
+<details>
+<summary>View the diagram vertically</summary>
+
+<picture>
+  <source media="(prefers-color-scheme: dark)" srcset="static/readme/which-product-dark-mobile.svg">
+  <img alt="Vertical view of the local-agent and hosted-cloud paths, including explicit Profile Sync" src="static/readme/which-product-light-mobile.svg" width="360">
+</picture>
+
+</details>
+
+[How the pieces fit together ↗](https://docs.browser-use.com/cloud/which-product)
 
 Eligible new Google, GitHub or Microsoft signups get a one-time **$15 Cloud credit**. No card required; email/password signups do not qualify. [Pricing and eligibility](https://browser-use.com/pricing.md).
 
-- **Hosted agent:** [V4 quickstart](https://docs.browser-use.com/cloud/agent/quickstart), using `browser-use-sdk`.
-- **Your own agent:** [Managed browser quickstart](https://docs.browser-use.com/cloud/browser/quickstart).
-- **Local framework:** the `browser-use` Python library below.
-
 # Quickstart
 
-If you want to use Browser Use in your agent (Claude Code, Codex, Cursor, Hermes, OpenClaw, etc.), paste this prompt, and it sets everything up itself:
+If you want to use Browser Use in your agent (Claude Code, Codex, OpenCode, Cursor, Hermes, OpenClaw, etc.), paste this prompt, and it sets everything up itself:
 
 ```text
 Install or upgrade browser-use to the latest stable version with uv using Python 3.12, run `browser-use skill install` to register the skill, and connect it to my browser. If setup or connection fails, follow https://github.com/browser-use/browser-harness/blob/main/install.md.
@@ -93,13 +132,11 @@ uv add browser-use
 # or: pip install browser-use
 ```
 
-**2. Add your LLM API key to `.env`**. Get one from [Browser Use Cloud](https://cloud.browser-use.com/new-api-key?utm_source=github&utm_medium=readme-quickstart-api-key), or bring your own provider key:
+**2. Add your [OpenAI API key](https://platform.openai.com/api-keys) to `.env`:**
 
 ```bash
 # .env
-BROWSER_USE_API_KEY=your-key
-# GOOGLE_API_KEY=your-key
-# ANTHROPIC_API_KEY=your-key
+OPENAI_API_KEY=your-key
 ```
 
 **3. Run your first agent:**
@@ -107,15 +144,15 @@ BROWSER_USE_API_KEY=your-key
 ```python
 import asyncio
 
-from browser_use import Agent, ChatBrowserUse
+from browser_use import Agent, ChatOpenAI
+from dotenv import load_dotenv
+
+load_dotenv()
 
 async def main():
     agent = Agent(
         task="Find the number of stars of the browser-use repo",
-        llm=ChatBrowserUse(model='openai/gpt-5.5'),
-        # llm=ChatBrowserUse(model='bu-2-0-mini-preview'),  # Browser Use's optimized model
-        # llm=ChatOpenAI(model='gpt-5.5'),
-        # llm=ChatAnthropic(model='claude-opus-4-8'),  # Sonnet also works well
+        llm=ChatOpenAI(model='gpt-5.6-luna', reasoning_effort='xhigh'),
     )
     history = await agent.run()
 
@@ -123,17 +160,19 @@ if __name__ == "__main__":
     asyncio.run(main())
 ```
 
-Check out the [library docs](https://docs.browser-use.com/open-source/introduction) and the [cloud docs](https://docs.cloud.browser-use.com?utm_source=github&utm_medium=readme-cloud-docs) for more!
+Check out the [library docs](https://docs.browser-use.com/open-source/introduction) and the [cloud docs](https://docs.browser-use.com/cloud/quickstart) for more!
 
 <br/>
 
-# Open Source vs Cloud
+# Benchmark
 
 <img alt="Browser Use Benchmark v2 - Mean rubric score by model and cost per task" src="static/hard_benchmark_v2.jpg" width="100%">
 
 This [very hard benchmark](https://github.com/browser-use/benchmark) targets the hardest browser tasks. On easier tasks, even smaller models can achieve very high success rates. Results shown are from a 60-task subset of BU Bench V2.
 
 Browser Use is also **#1 on the [Odysseys leaderboard](https://odysseysbench.com/leaderboard)** with an 87.4% average, ahead of computer-use agents from OpenAI, Anthropic, Google, and Microsoft. Odysseys measures the agent's performance on 200 long-horizon web tasks.
+
+# Open Source vs Cloud
 
 **Use the Open-Source Agent**
 - Free, and runs on your own machine
@@ -195,7 +234,7 @@ Yes. `ChatBrowserUse` accepts provider-prefixed model ids, so a single `BROWSER_
 ```python
 from browser_use import Agent, ChatBrowserUse
 
-llm = ChatBrowserUse(model='anthropic/claude-sonnet-4-6')  # or 'openai/gpt-5.5', 'google/gemini-3-pro'
+llm = ChatBrowserUse(model='anthropic/claude-sonnet-4-6')  # or 'google/gemini-3-pro'
 agent = Agent(task='...', llm=llm)
 ```
 
