@@ -1,36 +1,27 @@
-# README artwork and demo sources
+# README diagram and demo sources
 
-These assets reuse Browser Use's existing website and documentation artwork.
-No demo footage was generated for this README.
+## Product diagram
 
-## Product artwork
+`which-product-light.svg` and `which-product-dark.svg` are editable SVGs.
+They are adapted from [the SDK product diagram](https://github.com/browser-use/sdk/blob/bfc0140801caf6a4c518c811f03674135efbd4aa/docs/cloud/images/which-product-light.svg),
+introduced in [SDK PR #241](https://github.com/browser-use/sdk/pull/241).
 
-Copied unchanged from the [Browser Use website](https://browser-use.com),
-`browser-use/website` commit `f07970a`:
+The README version shows three paths:
 
-| Local file | Website source |
-| --- | --- |
-| `local-agent.jpg` | `/lander/plates/oss-14b77bfd.jpg` |
-| `cloud-browsers.jpg` | `/lander/plates/browsers-8dd60aa0.jpg` |
-| `hosted-agent.jpg` | `/lander/plates/agents-be1dd941.jpg` |
+- Fully hosted cloud: OpenCode → Browser Use CLI → cloud browser.
+- CLI: your existing agent → Browser Use CLI → local or cloud browser.
+- Python library: your code → Browser Use agent → local or cloud browser.
 
-## Product map
+Keep the light and dark SVGs structurally identical when changing the diagram.
+The SDK source remains the reference for the hosted stack; this README adds the
+Python-library path and omits the Playwright branch.
 
-The four `which-product-*.svg` files are copied unchanged from
-[`browser-use/sdk`, `docs/cloud/images`](https://github.com/browser-use/sdk/tree/main/docs/cloud/images).
-They were introduced in [SDK PR #241](https://github.com/browser-use/sdk/pull/241).
-Keep the local/cloud routes and separate Profile Sync path aligned with the
-[product guide](https://docs.browser-use.com/cloud/which-product).
+## Driving-test demo
 
-## Demo thumbnail
+The inline GIF is converted from [Johannes Dittrich's public driving-test video](https://x.com/mathisdittrich/status/2078619618265141560).
+It preserves the full 20.4-second recording at 960×540, 10 frames per second,
+with an infinite loop. The source recording already obscures the contact fields.
+No demo footage was generated.
 
-| Local file | Published source |
-| --- | --- |
-| `driving-test.jpg` | [Johannes Dittrich's driving-test demo](https://x.com/mathisdittrich/status/2078619618265141560) |
-
-The README links to the playable public recording. Keep the poster and
-caption consistent with that recording when updating them.
-
-`driving-test.jpg` is the 8-second frame of Johannes's public recording,
-showing the appointment-location selection. The personal contact fields are
-not in this frame.
+The GIF is hosted as a [GitHub attachment](https://github.com/user-attachments/assets/135885e8-1141-4e10-b719-bf690ae7d260)
+so cloning the repository does not download the animation.

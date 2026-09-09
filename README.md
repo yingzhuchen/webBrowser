@@ -47,7 +47,7 @@ Browser Use gives AI agents a browser. Describe a task, and the agent navigates 
 
 Find an available slot, handle the CAPTCHA, and schedule the test with Browser Use V4.
 
-[![Johannes's Browser Use V4 driving-test booking demo](static/readme/driving-test.jpg)](https://x.com/mathisdittrich/status/2078619618265141560)
+![Browser Use V4 booking a driving test](https://github.com/user-attachments/assets/135885e8-1141-4e10-b719-bf690ae7d260)
 
 [Watch Johannes's demo ↗](https://x.com/mathisdittrich/status/2078619618265141560)
 
@@ -57,61 +57,18 @@ Find an available slot, handle the CAPTCHA, and schedule the test with Browser U
 
 # Which Browser Use do I need?
 
-<table>
-  <tr>
-    <td width="32%" valign="middle">
-      <a href="#quickstart"><img src="static/readme/local-agent.jpg" alt="A white monolith opened like a book, with people walking in" width="100%"></a>
-    </td>
-    <td width="68%" valign="top">
-      <h3>Your agent, your browser</h3>
-      <p>Connect your coding agent with the CLI, or build automation with the Python library.</p>
-      <a href="#quickstart">Start locally ↗</a>
-    </td>
-  </tr>
-  <tr>
-    <td width="32%" valign="middle">
-      <a href="https://docs.browser-use.com/cloud/browser/quickstart"><img src="static/readme/cloud-browsers.jpg" alt="A key-shaped bridge across a canyon" width="100%"></a>
-    </td>
-    <td width="68%" valign="top">
-      <h3>Your agent, our browsers</h3>
-      <p>Connect your agent to cloud browsers with stealth, proxies, and saved profiles.</p>
-      <a href="https://docs.browser-use.com/cloud/browser/quickstart">Connect a cloud browser ↗</a>
-    </td>
-  </tr>
-  <tr>
-    <td width="32%" valign="middle">
-      <a href="https://docs.browser-use.com/cloud/agent/quickstart"><img src="static/readme/hosted-agent.jpg" alt="A hand holding a magnifier over glass carriages carrying cities" width="100%"></a>
-    </td>
-    <td width="68%" valign="top">
-      <h3>Our agent, our cloud</h3>
-      <p>Send a task to V4. We run the agent, browser, and infrastructure.</p>
-      <a href="https://docs.browser-use.com/cloud/agent/quickstart">Run a hosted task ↗</a>
-    </td>
-  </tr>
-</table>
-
 <picture>
   <source media="(prefers-color-scheme: dark)" srcset="static/readme/which-product-dark.svg">
-  <img alt="Choose your agent, CLI, and browser: local agents can use real Chrome or cloud browsers; hosted V4 runs the full stack. Profile Sync is a separate step." src="static/readme/which-product-light.svg" width="100%">
+  <img alt="Three ways to use Browser Use: fully hosted cloud; your existing agent with Browser Use CLI; or the Python library with the Browser Use agent. The CLI and library each connect to a local or cloud browser." src="static/readme/which-product-light.svg" width="100%">
 </picture>
 
-<details>
-<summary>View the diagram vertically</summary>
+- **[CLI](#cli-quickstart):** Give Claude Code, Codex, OpenCode, Pi, or another agent browser access.
+- **[Python library](#python-library):** Run the Browser Use agent locally from your own code.
+- **[Fully hosted cloud](#fully-hosted-cloud):** Send a task through the API; we run the agent and browser.
 
-<picture>
-  <source media="(prefers-color-scheme: dark)" srcset="static/readme/which-product-dark-mobile.svg">
-  <img alt="Vertical view of the local-agent and hosted-cloud paths, including explicit Profile Sync" src="static/readme/which-product-light-mobile.svg" width="360">
-</picture>
+## CLI quickstart
 
-</details>
-
-[How the pieces fit together ↗](https://docs.browser-use.com/cloud/which-product)
-
-Eligible new Google, GitHub or Microsoft signups get a one-time **$15 Cloud credit**. No card required; email/password signups do not qualify. [Pricing and eligibility](https://browser-use.com/pricing.md).
-
-# Quickstart
-
-If you want to use Browser Use in your agent (Claude Code, Codex, OpenCode, Cursor, Hermes, OpenClaw, etc.), paste this prompt, and it sets everything up itself:
+If you want to use Browser Use in your agent (Claude Code, Codex, OpenCode, Pi, Cursor, Hermes, OpenClaw, etc.), paste this prompt, and it sets everything up itself:
 
 ```text
 Install or upgrade browser-use to the latest stable version with uv using Python 3.12, run `browser-use skill install` to register the skill, and connect it to my browser. If setup or connection fails, follow https://github.com/browser-use/browser-harness/blob/main/install.md.
@@ -121,9 +78,9 @@ Then tell your agent what you want done.
 
 <br/>
 
-# Python library: the easiest way to automate the web
+## Python library
 
-Want to automate the web at scale, from your own code, and with any LLM? Use the Python library:
+Run the Browser Use agent locally from Python, with your choice of model and a local or cloud browser:
 
 **1. Install Browser Use (Python >= 3.11):**
 
@@ -160,7 +117,17 @@ if __name__ == "__main__":
     asyncio.run(main())
 ```
 
-Check out the [library docs](https://docs.browser-use.com/open-source/introduction) and the [cloud docs](https://docs.browser-use.com/cloud/quickstart) for more!
+[Python library docs ↗](https://docs.browser-use.com/open-source/introduction)
+
+<br/>
+
+## Fully hosted cloud
+
+Send a task to our hosted V4 agent. We run the agent, browser, and infrastructure.
+
+[Get started with the API ↗](https://docs.browser-use.com/cloud/agent/quickstart)
+
+New Google, GitHub, or Microsoft signups get **$15 cloud credit**. No card required.
 
 <br/>
 
@@ -172,30 +139,6 @@ This [very hard benchmark](https://github.com/browser-use/benchmark) targets the
 
 Browser Use is also **#1 on the [Odysseys leaderboard](https://odysseysbench.com/leaderboard)** with an 87.4% average, ahead of computer-use agents from OpenAI, Anthropic, Google, and Microsoft. Odysseys measures the agent's performance on 200 long-horizon web tasks.
 
-# Open Source vs Cloud
-
-**Use the Open-Source Agent**
-- Free, and runs on your own machine
-- Deep code-level integration and control: pick your LLM, customize the agent's behavior
-- We recommend pairing it with our [cloud browsers](https://docs.browser-use.com/open-source/customize/browser/remote) for leading stealth, proxy rotation, and scaling
-
-**Use the [Fully-Hosted Cloud Agent](https://cloud.browser-use.com?utm_source=github&utm_medium=readme-hosted-agent) (recommended)**
-- Much more powerful agent for complex tasks
-- Easiest way to start and scale
-- Best stealth with proxy rotation and captcha solving
-- 1000+ integrations (Gmail, Slack, Notion, and more)
-- Persistent filesystem and memory
-- Rerunnable scripts fetch live data, even when sites change ([guide](https://docs.browser-use.com/cloud/agent/scripts))
-
-```sh
-curl -X POST https://api.browser-use.com/api/v4/runs \
-  -H "X-Browser-Use-API-Key: $BROWSER_USE_API_KEY" \
-  -H "Content-Type: application/json" \
-  -d '{"task": "Your task"}'
-```
-
-<br/>
-
 ## Integrations, hosting, custom tools, MCP, and more on our [Docs ↗](https://docs.browser-use.com)
 
 <br/>
@@ -205,7 +148,7 @@ curl -X POST https://api.browser-use.com/api/v4/runs \
 <details>
 <summary><b>Should I use the CLI vs. the Python library?</b></summary>
 
-**Use the CLI** if you already have an agent (Claude Code, Codex, Cursor, Hermes, OpenClaw, etc.) that you want to complete browser tasks for you. The agent installs the skill once (see [Quickstart](#quickstart)) and can then control the browser. Examples:
+**Use the CLI** if you already have an agent (Claude Code, Codex, OpenCode, Pi, Cursor, Hermes, OpenClaw, etc.) that you want to complete browser tasks for you. The agent installs the skill once (see [CLI quickstart](#cli-quickstart)) and can then control the browser. Examples:
 - "Upload this video to YouTube"
 - "Compare these three laptops and give me a table with prices"
 - "Fill in this job application with my resume"
