@@ -8,9 +8,10 @@ introduced in [SDK PR #241](https://github.com/browser-use/sdk/pull/241).
 
 The README version shows three paths:
 
-- Fully hosted cloud: OpenCode → Browser Use CLI → cloud browser.
-- CLI: your existing agent → Browser Use CLI → local or cloud browser.
-- Python library: your code → Browser Use agent → local or cloud browser.
+- Path 1, fully hosted cloud: OpenCode → Browser Use CLI → cloud browser.
+- Path 2, CLI: your existing agent → Browser Use CLI → local or cloud browser.
+- Path 3, Python library: the open source Browser Use agent → local or cloud browser.
+  The agent and its Python library are one block, with no CLI step.
 
 Keep the light and dark SVGs structurally identical when changing the diagram.
 The SDK source remains the reference for the hosted stack; this README adds the
