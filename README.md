@@ -82,7 +82,7 @@ New Google, GitHub, or Microsoft signups get **$15 cloud credit**.
 
 ## Path 2: CLI
 
-Paste this setup prompt into your agent to automate your own browser tasks.
+Paste this prompt into Claude Code, Codex, Hermes, OpenClaw, or your favorite agent.
 
 ```text
 Install or upgrade browser-use to the latest stable version with uv using Python 3.12, run `browser-use skill install` to register the skill, and connect it to my browser. If setup or connection fails, follow https://github.com/browser-use/browser-harness/blob/main/install.md.
