@@ -22,17 +22,14 @@ They were introduced in [SDK PR #241](https://github.com/browser-use/sdk/pull/24
 Keep the local/cloud routes and separate Profile Sync path aligned with the
 [product guide](https://docs.browser-use.com/cloud/which-product).
 
-## Demo thumbnails
+## Demo thumbnail
 
 | Local file | Published source |
 | --- | --- |
 | `driving-test.jpg` | [Johannes Dittrich's driving-test demo](https://x.com/mathisdittrich/status/2078619618265141560) |
-| `cinema-seats.jpg` | [Cinema-seat selection](https://browser-use.com/showcase/pick-adjacent-cinema-seats) |
-| `tetris.jpg` | [Tetris](https://browser-use.com/showcase/clear-tetris-lines-in-17-seconds), originally [Shawn's recording](https://x.com/shawn_pana/status/2047120626994012442) |
-| `portal-to-csv.jpg` | [Portal results to CSV](https://browser-use.com/showcase/export-portal-results-to-csv) |
 
-The README links to the playable public recordings. Keep poster images and
-captions consistent with those recordings when updating them.
+The README links to the playable public recording. Keep the poster and
+caption consistent with that recording when updating them.
 
 `driving-test.jpg` is the 8-second frame of Johannes's public recording,
 showing the appointment-location selection. The personal contact fields are

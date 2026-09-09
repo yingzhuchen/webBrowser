@@ -43,36 +43,13 @@
 
 Browser Use gives AI agents a browser. Describe a task, and the agent navigates websites, fills forms, and gets the work done.
 
-<table>
-  <tr>
-    <td width="50%" valign="top">
-      <a href="https://x.com/mathisdittrich/status/2078619618265141560"><img src="static/readme/driving-test.jpg" alt="Johannes's Browser Use V4 driving-test booking demo" width="100%"></a>
-      <h3>Book a driving test</h3>
-      <p>Find an available slot, handle the CAPTCHA, and schedule the test.</p>
-      <a href="https://x.com/mathisdittrich/status/2078619618265141560">Watch Johannes's demo ↗</a>
-    </td>
-    <td width="50%" valign="top">
-      <a href="https://browser-use.com/showcase/pick-adjacent-cinema-seats"><img src="static/readme/cinema-seats.jpg" alt="Browser Use selecting two adjacent seats on a cinema seat map" width="100%"></a>
-      <h3>Find cinema seats together</h3>
-      <p>Check the showtime, open the seat map, and select adjacent seats.</p>
-      <a href="https://browser-use.com/showcase/pick-adjacent-cinema-seats">Watch demo ↗</a>
-    </td>
-  </tr>
-  <tr>
-    <td width="50%" valign="top">
-      <a href="https://browser-use.com/showcase/clear-tetris-lines-in-17-seconds"><img src="static/readme/tetris.jpg" alt="Browser Harness playing Tetris from the live board" width="100%"></a>
-      <h3>Play Tetris in the browser</h3>
-      <p>Read the live board and clear 100 lines in 17 seconds.</p>
-      <a href="https://browser-use.com/showcase/clear-tetris-lines-in-17-seconds">Watch demo ↗</a>
-    </td>
-    <td width="50%" valign="top">
-      <a href="https://browser-use.com/showcase/export-portal-results-to-csv"><img src="static/readme/portal-to-csv.jpg" alt="Browser Use searching a certification portal before exporting results to CSV" width="100%"></a>
-      <h3>Turn a website into a CSV</h3>
-      <p>Search a portal, collect 50 matching products, and verify the export.</p>
-      <a href="https://browser-use.com/showcase/export-portal-results-to-csv">Watch demo ↗</a>
-    </td>
-  </tr>
-</table>
+### Book a driving test
+
+Find an available slot, handle the CAPTCHA, and schedule the test with Browser Use V4.
+
+[![Johannes's Browser Use V4 driving-test booking demo](static/readme/driving-test.jpg)](https://x.com/mathisdittrich/status/2078619618265141560)
+
+[Watch Johannes's demo ↗](https://x.com/mathisdittrich/status/2078619618265141560)
 
 [Explore more demos and prompts ↗](https://browser-use.com/showcase)
 
@@ -155,14 +132,11 @@ uv add browser-use
 # or: pip install browser-use
 ```
 
-**2. Add your LLM API key to `.env`**. Get one from [Browser Use Cloud](https://cloud.browser-use.com/new-api-key?utm_source=github&utm_medium=readme-quickstart-api-key), or bring your own provider key:
+**2. Add your [OpenAI API key](https://platform.openai.com/api-keys) to `.env`:**
 
 ```bash
 # .env
-BROWSER_USE_API_KEY=your-key
-# GOOGLE_API_KEY=your-key
-# ANTHROPIC_API_KEY=your-key
-# OPENAI_API_KEY=your-key
+OPENAI_API_KEY=your-key
 ```
 
 **3. Run your first agent:**
@@ -170,27 +144,20 @@ BROWSER_USE_API_KEY=your-key
 ```python
 import asyncio
 
-from browser_use import Agent, ChatBrowserUse
+from browser_use import Agent, ChatOpenAI
+from dotenv import load_dotenv
+
+load_dotenv()
 
 async def main():
     agent = Agent(
         task="Find the number of stars of the browser-use repo",
-        llm=ChatBrowserUse(model='openai/gpt-5.6-luna'),
-        # llm=ChatBrowserUse(model='bu-2-0-mini-preview'),  # Browser Use's optimized model
+        llm=ChatOpenAI(model='gpt-5.6-luna', reasoning_effort='xhigh'),
     )
     history = await agent.run()
 
 if __name__ == "__main__":
     asyncio.run(main())
-```
-
-To use Luna directly through OpenAI with `xhigh` reasoning, set `OPENAI_API_KEY` and use:
-
-```python
-from browser_use import ChatOpenAI
-
-llm = ChatOpenAI(model='gpt-5.6-luna', reasoning_effort='xhigh')
-# Pass llm=llm to Agent(...).
 ```
 
 Check out the [library docs](https://docs.browser-use.com/open-source/introduction) and the [cloud docs](https://docs.browser-use.com/cloud/quickstart) for more!
@@ -267,7 +234,7 @@ Yes. `ChatBrowserUse` accepts provider-prefixed model ids, so a single `BROWSER_
 ```python
 from browser_use import Agent, ChatBrowserUse
 
-llm = ChatBrowserUse(model='openai/gpt-5.6-luna')  # or 'anthropic/claude-sonnet-4-6', 'google/gemini-3-pro'
+llm = ChatBrowserUse(model='anthropic/claude-sonnet-4-6')  # or 'google/gemini-3-pro'
 agent = Agent(task='...', llm=llm)
 ```
 
