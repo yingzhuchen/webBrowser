@@ -1,6 +1,6 @@
 <svg xmlns="http://www.w3.org/2000/svg" width="1440" height="690" viewBox="0 0 1440 690" role="img" aria-labelledby="title desc">
   <title id="title">Three ways to use Browser Use</title>
-  <desc id="desc">Path 1: fully hosted cloud runs our OpenCode agent, Browser Use CLI, and a cloud browser through the V4 API. Path 2: the CLI connects your existing agent, including Claude Code, Codex, Hermes, OpenClaw, OpenCode, or Pi, to a local or cloud browser. Path 3: the open source Browser Use agent is a Python library that connects directly to a local or cloud browser.</desc>
+  <desc id="desc">Path 1: fully hosted cloud runs our agent, Browser Use CLI, and a cloud browser through the V4 API. Path 2: the CLI connects your agent, including Claude Code, Codex, Hermes, OpenClaw, or Pi, to a local or cloud browser. Path 3: the open source Browser Use agent is a Python library that can run fully locally or connect to a cloud browser.</desc>
   <defs>
     <marker id="arrow" markerWidth="8" markerHeight="8" refX="7" refY="4" orient="auto"><path d="M0 0L8 4L0 8Z" fill="#92929C"/></marker>
     <marker id="cloud-arrow" markerWidth="8" markerHeight="8" refX="7" refY="4" orient="auto"><path d="M0 0L8 4L0 8Z" fill="#FFAB66"/></marker>
@@ -15,16 +15,16 @@
     <text x="240" y="109" text-anchor="middle" fill="#FAFAFA" font-size="30" font-weight="750">1. Fully hosted cloud</text>
     <text x="720" y="109" text-anchor="middle" fill="#FAFAFA" font-size="30" font-weight="750">2. CLI</text>
     <text x="1192" y="109" text-anchor="middle" fill="#FAFAFA" font-size="30" font-weight="750">3. Python library</text>
-    <text x="240" y="140" text-anchor="middle" fill="#BDBDC5" font-size="20" font-weight="450">Send a task through the API</text>
-    <text x="720" y="140" text-anchor="middle" fill="#BDBDC5" font-size="20" font-weight="450">Use your existing agent</text>
-    <text x="1192" y="140" text-anchor="middle" fill="#BDBDC5" font-size="20" font-weight="450">Run your own automation</text>
+    <text x="240" y="140" text-anchor="middle" fill="#BDBDC5" font-size="20" font-weight="450">Easiest way to scale up</text>
+    <text x="720" y="140" text-anchor="middle" fill="#BDBDC5" font-size="20" font-weight="450">Automate your own browser tasks</text>
+    <text x="1192" y="140" text-anchor="middle" fill="#BDBDC5" font-size="20" font-weight="450">Run fully local</text>
     <rect x="64" y="184" width="352" height="112" rx="16" fill="#29292E" stroke="#92929C" stroke-width="2"/>
     <text x="240" y="219" text-anchor="middle" fill="#BDBDC5" font-size="18" font-weight="700">OUR AGENT</text>
-    <text x="240" y="260" text-anchor="middle" fill="#FAFAFA" font-size="29" font-weight="750">OpenCode</text>
+    <text x="240" y="260" text-anchor="middle" fill="#FAFAFA" font-size="29" font-weight="750">Browser Use Agent</text>
     <rect x="520" y="184" width="400" height="112" rx="16" fill="#29292E" stroke="#92929C" stroke-width="2"/>
     <text x="720" y="214" text-anchor="middle" fill="#BDBDC5" font-size="18" font-weight="700">YOUR AGENT</text>
     <text x="720" y="247" text-anchor="middle" fill="#FAFAFA" font-size="22" font-weight="600">Claude Code · Codex · Pi</text>
-    <text x="720" y="278" text-anchor="middle" fill="#FAFAFA" font-size="22" font-weight="600">Hermes · OpenClaw · OpenCode</text>
+    <text x="720" y="278" text-anchor="middle" fill="#FAFAFA" font-size="22" font-weight="600">Hermes · OpenClaw</text>
     <rect x="992" y="184" width="400" height="244" rx="16" fill="#302419" stroke="#FFAB66" stroke-width="2"/>
     <text x="1192" y="262" text-anchor="middle" fill="#FFAB66" font-size="20" font-weight="700">OPEN SOURCE</text>
     <text x="1192" y="313" text-anchor="middle" fill="#FAFAFA" font-size="31" font-weight="750">Browser Use Agent</text>
