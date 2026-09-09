@@ -33,3 +33,7 @@ Keep the local/cloud routes and separate Profile Sync path aligned with the
 
 The README links to the playable public recordings. Keep poster images and
 captions consistent with those recordings when updating them.
+
+`driving-test.jpg` is the 8-second frame of Johannes's public recording,
+showing the appointment-location selection. The personal contact fields are
+not in this frame.

@@ -104,11 +104,19 @@ Browser Use gives AI agents a browser. Describe a task, and the agent navigates 
 </table>
 
 <picture>
-  <source media="(prefers-color-scheme: dark) and (max-width: 600px)" srcset="static/readme/which-product-dark-mobile.svg">
-  <source media="(max-width: 600px)" srcset="static/readme/which-product-light-mobile.svg">
   <source media="(prefers-color-scheme: dark)" srcset="static/readme/which-product-dark.svg">
   <img alt="Choose your agent, CLI, and browser: local agents can use real Chrome or cloud browsers; hosted V4 runs the full stack. Profile Sync is a separate step." src="static/readme/which-product-light.svg" width="100%">
 </picture>
+
+<details>
+<summary>View the diagram vertically</summary>
+
+<picture>
+  <source media="(prefers-color-scheme: dark)" srcset="static/readme/which-product-dark-mobile.svg">
+  <img alt="Vertical view of the local-agent and hosted-cloud paths, including explicit Profile Sync" src="static/readme/which-product-light-mobile.svg" width="360">
+</picture>
+
+</details>
 
 [How the pieces fit together ↗](https://docs.browser-use.com/cloud/which-product)
 
