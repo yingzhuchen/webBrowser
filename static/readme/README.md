@@ -16,7 +16,7 @@ introduced in [SDK PR #241](https://github.com/browser-use/sdk/pull/241).
 
 The README version shows three paths:
 
-- Path 1, fully hosted cloud: OpenCode → Browser Use CLI → cloud browser.
+- Path 1, fully hosted cloud: our hosted agent → Browser Use CLI → cloud browser.
 - Path 2, CLI: your existing agent → Browser Use CLI → local or cloud browser.
 - Path 3, Python library: the open source Browser Use agent → local or cloud browser.
   The agent and its Python library are one block, with no CLI step.
