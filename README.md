@@ -151,7 +151,7 @@ The agent opens a browser, looks up the repository, and prints its answer.
 
 <br/>
 
-# Benchmark
+# Browser Use Benchmark v2
 
 <img alt="Browser Use Benchmark v2 - Mean rubric score by model and cost per task" src="static/hard_benchmark_v2.jpg" width="100%">
 
@@ -285,6 +285,7 @@ You can also host the Python library and browsers on your own infrastructure.
 | Repository | What it's for |
 | --- | --- |
 | [Browser Harness](https://github.com/browser-use/browser-harness) | Our CLI for giving AI agents control of your browser. |
+| [Browser Harness JS](https://github.com/browser-use/browser-harness-js) | Give your JavaScript agent control of a real browser. |
 | [Browser Use Pi](https://github.com/browser-use/browser-use-pi) | Run a TypeScript browser agent built on Pi. |
 | [Cloud SDK](https://github.com/browser-use/sdk) | Integrate Browser Use Cloud into your application. |
 | [Video Use](https://github.com/browser-use/video-use) | Edit videos with your coding agent. |

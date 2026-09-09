@@ -25,6 +25,13 @@ Keep the light and dark SVGs structurally identical when changing the diagram.
 The SDK source remains the reference for the hosted stack; this README adds the
 Python-library path and omits the Playwright branch.
 
+## Benchmark plot
+
+`../hard_benchmark_v2.jpg` is a lossless crop of the
+[original plot](https://github.com/browser-use/browser-use/blob/f5f58c6ef4e6b95728f8b304015bb29f00bddd69/static/hard_benchmark_v2.jpg).
+Only the top 80 pixels containing the title were removed; all retained pixels
+are unchanged. The title appears as a README heading instead.
+
 ## Driving-test demo
 
 The inline GIF is converted from [Johannes Dittrich's public driving-test video](https://x.com/mathisdittrich/status/2078619618265141560).
