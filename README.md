@@ -82,22 +82,32 @@ Browser Use gives AI agents a browser. Describe a task, and the agent navigates 
 
 <table>
   <tr>
-    <td width="33%" valign="top">
+    <td width="32%" valign="middle">
       <a href="#quickstart"><img src="static/readme/local-agent.jpg" alt="A white monolith opened like a book, with people walking in" width="100%"></a>
+    </td>
+    <td width="68%" valign="top">
       <h3>Your agent, your browser</h3>
-      <p>Give Claude Code, Codex, OpenCode, or Hermes browser access with the CLI. Build your own automation with the Python library.</p>
+      <p>Connect your coding agent with the CLI, or build automation with the Python library.</p>
       <a href="#quickstart">Start locally ↗</a>
     </td>
-    <td width="33%" valign="top">
+  </tr>
+  <tr>
+    <td width="32%" valign="middle">
       <a href="https://docs.browser-use.com/cloud/browser/quickstart"><img src="static/readme/cloud-browsers.jpg" alt="A key-shaped bridge across a canyon" width="100%"></a>
+    </td>
+    <td width="68%" valign="top">
       <h3>Your agent, our browsers</h3>
-      <p>Keep your agent and connect it to managed cloud browsers with stealth, proxies, and saved profiles.</p>
+      <p>Connect your agent to cloud browsers with stealth, proxies, and saved profiles.</p>
       <a href="https://docs.browser-use.com/cloud/browser/quickstart">Connect a cloud browser ↗</a>
     </td>
-    <td width="33%" valign="top">
+  </tr>
+  <tr>
+    <td width="32%" valign="middle">
       <a href="https://docs.browser-use.com/cloud/agent/quickstart"><img src="static/readme/hosted-agent.jpg" alt="A hand holding a magnifier over glass carriages carrying cities" width="100%"></a>
+    </td>
+    <td width="68%" valign="top">
       <h3>Our agent, our cloud</h3>
-      <p>Send a task to the hosted V4 agent. We run the agent, browser, and infrastructure.</p>
+      <p>Send a task to V4. We run the agent, browser, and infrastructure.</p>
       <a href="https://docs.browser-use.com/cloud/agent/quickstart">Run a hosted task ↗</a>
     </td>
   </tr>
