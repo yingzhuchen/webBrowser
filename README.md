@@ -6,44 +6,22 @@
 </picture>
 
 <div align="center">
-    <picture>
-    <source media="(prefers-color-scheme: light)" srcset="https://github.com/user-attachments/assets/9955dda9-ede3-4971-8ee0-91cbc3850125">
-    <source media="(prefers-color-scheme: dark)" srcset="https://github.com/user-attachments/assets/6797d09b-8ac3-4cb9-ba07-b289e080765a">
-    <img alt="The AI browser agent." src="https://github.com/user-attachments/assets/9955dda9-ede3-4971-8ee0-91cbc3850125"  width="400">
-    </picture>
-</div>
-
-<div align="center">
-<a href="https://cloud.browser-use.com?utm_source=github&utm_medium=readme-badge-downloads"><img src="https://media.browser-use.tools/badges/package" height="48" alt="Browser-Use Package Download Statistics"></a>
-</div>
-
----
-
-<div align="center">
-<a href="#what-can-browser-use-do"><img src="https://media.browser-use.tools/badges/demos" alt="Demos"></a>
-<img width="16" height="1" alt="">
-<a href="https://docs.browser-use.com"><img src="https://media.browser-use.tools/badges/docs" alt="Docs"></a>
-<img width="16" height="1" alt="">
-<a href="https://browser-use.com/posts"><img src="https://media.browser-use.tools/badges/blog" alt="Blog"></a>
-<img width="16" height="1" alt="">
-<a href="https://browsermerch.com"><img src="https://media.browser-use.tools/badges/merch" alt="Merch"></a>
-<img width="100" height="1" alt="">
-<a href="https://github.com/browser-use/browser-use"><img src="https://media.browser-use.tools/badges/github" alt="Github Stars"></a>
-<img width="4" height="1" alt="">
-<a href="https://x.com/intent/user?screen_name=browser_use"><img src="https://media.browser-use.tools/badges/twitter" alt="Twitter"></a>
-<img width="4" height="1" alt="">
-<a href="https://link.browser-use.com/discord"><img src="https://media.browser-use.tools/badges/discord" alt="Discord"></a>
-<img width="4" height="1" alt="">
-<a href="https://cloud.browser-use.com?utm_source=github&utm_medium=readme-badge-cloud"><img src="https://media.browser-use.tools/badges/cloud" height="48" alt="Browser-Use Cloud"></a>
+  <h3>Give AI agents control of the web.</h3>
+  <p>Connect your existing agent, run Browser Use in Python, or send a task to our cloud.</p>
+  <p>
+    <a href="#quickstart">Quickstart</a> ·
+    <a href="#navigate-the-web-like-a-human-does">Demos</a> ·
+    <a href="https://docs.browser-use.com">Docs</a> ·
+    <a href="https://cloud.browser-use.com">Cloud</a>
+  </p>
+  <a href="https://browser-use.com">
+    <img src="https://browser-use.com/lander/plates/browsers-8dd60aa0.jpg" alt="A person crossing an orange canyon on a giant key-shaped bridge, from the Browser Use website." width="720">
+  </a>
 </div>
 
 <br/>
 
-# What can Browser Use do?
-
-Browser Use gives AI agents a browser. Describe a task, and the agent navigates websites, fills forms, and gets the work done.
-
-### Navigate the web like a human does.
+# Navigate the web like a human does.
 
 Find an available slot, pick a date and time, handle the CAPTCHA, and book a driving test.
 
@@ -278,6 +256,16 @@ You can also host the Python library and browsers on your own infrastructure.
 
 <br/>
 
+## Related Repositories
+
+| Repository | What it's for |
+| --- | --- |
+| [Browser Harness](https://github.com/browser-use/browser-harness) | Connect your existing AI agent to a real browser. |
+| [Cloud SDK](https://github.com/browser-use/sdk) | Integrate Browser Use Cloud into your application. |
+| [Benchmark](https://github.com/browser-use/benchmark) | Explore browser tasks and compare agent performance. |
+
+<br/>
+
 ## Citation
 
 If you use Browser Use in your research or project, please cite:
@@ -295,6 +283,15 @@ If you use Browser Use in your research or project, please cite:
 <br/>
 
 <div align="center">
+
+<p>
+  <a href="https://browser-use.com/posts">Blog</a> ·
+  <a href="https://link.browser-use.com/discord">Discord</a> ·
+  <a href="https://x.com/browser_use">X</a> ·
+  <a href="https://browsermerch.com">Merch</a>
+</p>
+
+<a href="https://cloud.browser-use.com?utm_source=github&utm_medium=readme-badge-downloads"><img src="https://media.browser-use.tools/badges/package" height="48" alt="Browser-Use Package Download Statistics"></a>
 
 **Tell your computer what to do, and it gets it done.**
 
