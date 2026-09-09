@@ -43,13 +43,11 @@
 
 Browser Use gives AI agents a browser. Describe a task, and the agent navigates websites, fills forms, and gets the work done.
 
-### Book a driving test
+### Navigate the web like a human does.
 
-Find an available slot, handle the CAPTCHA, and schedule the test with Browser Use V4.
+Find an available slot, pick a date and time, handle the CAPTCHA, and book a driving test.
 
 ![Browser Use V4 booking a driving test](https://github.com/user-attachments/assets/135885e8-1141-4e10-b719-bf690ae7d260)
-
-[Watch Johannes's demo ↗](https://x.com/mathisdittrich/status/2078619618265141560)
 
 [Explore more demos and prompts ↗](https://browser-use.com/showcase)
 
@@ -59,14 +57,26 @@ Find an available slot, handle the CAPTCHA, and schedule the test with Browser U
 
 <picture>
   <source media="(prefers-color-scheme: dark)" srcset="static/readme/which-product-dark.svg">
-  <img alt="Three ways to use Browser Use: fully hosted cloud; your existing agent with Browser Use CLI; or the Python library with the Browser Use agent. The CLI and library each connect to a local or cloud browser." src="static/readme/which-product-light.svg" width="100%">
+  <img alt="Three ways to use Browser Use: fully hosted cloud; your existing agent with Browser Use CLI; or the open source Browser Use agent, available as a Python library. The CLI and library each connect to a local or cloud browser." src="static/readme/which-product-light.svg" width="100%">
 </picture>
 
-- **[CLI](#cli-quickstart):** Give Claude Code, Codex, OpenCode, Pi, or another agent browser access.
-- **[Python library](#python-library):** Run the Browser Use agent locally from your own code.
-- **[Fully hosted cloud](#fully-hosted-cloud):** Send a task through the API; we run the agent and browser.
+- **[Path 1: Fully Hosted Cloud](#path-1-fully-hosted-cloud):** Send a task through the API; we run the agent and browser.
+- **[Path 2: CLI](#path-2-cli):** Give Claude Code, Codex, OpenCode, Pi, or another agent browser access.
+- **[Path 3: Python Library](#path-3-python-library):** Run the open source Browser Use agent locally from your own code.
 
-## CLI quickstart
+# Quickstart
+
+## Path 1: Fully Hosted Cloud
+
+Send a task to our hosted agent. We run the agent, stealth browser, and scalable infrastructure, and handle profiles, recordings, and data policies so you can scale your browser automation.
+
+[Get started with the API ↗](https://docs.browser-use.com/cloud/agent/quickstart)
+
+New Google, GitHub, or Microsoft signups get **$15 cloud credit**.
+
+<br/>
+
+## Path 2: CLI
 
 If you want to use Browser Use in your agent (Claude Code, Codex, OpenCode, Pi, Cursor, Hermes, OpenClaw, etc.), paste this prompt, and it sets everything up itself:
 
@@ -78,7 +88,7 @@ Then tell your agent what you want done.
 
 <br/>
 
-## Python library
+## Path 3: Python Library
 
 Run the Browser Use agent locally from Python, with your choice of model and a local or cloud browser:
 
@@ -121,23 +131,11 @@ if __name__ == "__main__":
 
 <br/>
 
-## Fully hosted cloud
-
-Send a task to our hosted V4 agent. We run the agent, browser, and infrastructure.
-
-[Get started with the API ↗](https://docs.browser-use.com/cloud/agent/quickstart)
-
-New Google, GitHub, or Microsoft signups get **$15 cloud credit**. No card required.
-
-<br/>
-
 # Benchmark
 
 <img alt="Browser Use Benchmark v2 - Mean rubric score by model and cost per task" src="static/hard_benchmark_v2.jpg" width="100%">
 
 This [very hard benchmark](https://github.com/browser-use/benchmark) targets the hardest browser tasks. On easier tasks, even smaller models can achieve very high success rates. Results shown are from a 60-task subset of BU Bench V2.
-
-Browser Use is also **#1 on the [Odysseys leaderboard](https://odysseysbench.com/leaderboard)** with an 87.4% average, ahead of computer-use agents from OpenAI, Anthropic, Google, and Microsoft. Odysseys measures the agent's performance on 200 long-horizon web tasks.
 
 ## Integrations, hosting, custom tools, MCP, and more on our [Docs ↗](https://docs.browser-use.com)
 
@@ -148,7 +146,7 @@ Browser Use is also **#1 on the [Odysseys leaderboard](https://odysseysbench.com
 <details>
 <summary><b>Should I use the CLI vs. the Python library?</b></summary>
 
-**Use the CLI** if you already have an agent (Claude Code, Codex, OpenCode, Pi, Cursor, Hermes, OpenClaw, etc.) that you want to complete browser tasks for you. The agent installs the skill once (see [CLI quickstart](#cli-quickstart)) and can then control the browser. Examples:
+**Use the CLI** if you already have an agent (Claude Code, Codex, OpenCode, Pi, Cursor, Hermes, OpenClaw, etc.) that you want to complete browser tasks for you. The agent installs the skill once (see [CLI quickstart](#path-2-cli)) and can then control the browser. Examples:
 - "Upload this video to YouTube"
 - "Compare these three laptops and give me a table with prices"
 - "Fill in this job application with my resume"
