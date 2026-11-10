@@ -1,0 +1,28 @@
+<!doctype html>
+<html lang="zh-CN">
+<head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1"><title>webBrowser · 浏览器工作台</title><link rel="stylesheet" href="/style.css"><script src="/app.js" defer></script></head>
+<body>
+<aside>
+	<a class="brand" href="/">▧ <span>webBrowser<span class="version"> / 01</span></span></a>
+	<button id="new-task" class="new">＋ 新建任务 <kbd>⌘ K</kbd></button>
+	<div class="section-label">本次会话</div><nav id="history" aria-label="任务记录"><p class="muted">还没有任务记录</p></nav>
+	<div class="aside-footer"><span class="dot"></span> 本地工作台 <a href="https://github.com/browser-use/browser-use" target="_blank" rel="noreferrer">GitHub ↗</a></div>
+</aside>
+<main>
+	<header><span>工作台 <span class="slash">/</span> 新任务</span><span class="badge">BROWSER AGENT</span></header>
+	<section class="workspace">
+		<div class="eyebrow"><span class="dot"></span> 让浏览器帮你完成工作</div>
+		<h1>想做什么，<br><span>交给浏览器。</span></h1>
+		<p class="intro">从搜索信息到整理数据，用一句话开始你的下一个任务。</p>
+		<form id="task-form">
+			<label class="sr-only" for="task">任务描述</label><textarea id="task" placeholder="例如：打开 Hacker News，整理今天排名前五的文章…" required maxlength="12000"></textarea>
+			<div class="composer-footer"><span>↳ 描述目标，Agent 会规划执行</span><button id="run" type="submit">开始任务 <span>↗</span></button></div>
+		</form>
+		<div class="examples"><button type="button" data-task="打开 Hacker News，整理排名前五的文章标题、链接和简介。">⌕ 热门资讯</button><button type="button" data-task="对比 Python 和 JavaScript 的官方入门文档，整理各自的学习路径。">▤ 资料整理</button><button type="button" data-task="在 GitHub 搜索 browser-use，整理仓库介绍、星标数量和最近发布版本。">⌘ 项目研究</button></div>
+		<details class="settings"><summary>运行设置 <span>模型 · 浏览器 · 步数</span></summary><div class="fields"><label>模型<input id="model" placeholder="默认 bu-fast（可输入模型名称）"></label><label>浏览器<select id="browser"><option value="chromium">本地 Chromium</option><option value="cloud">Browser Use Cloud</option></select></label><label>最大步数<input id="steps" type="number" min="1" max="100" value="30" required form="task-form"></label></div><p>API 密钥从服务端环境变量读取。任务会使用所选模型；云浏览器需要 BROWSER_USE_API_KEY。</p></details>
+		<p id="notice" role="alert"></p>
+		<section id="result-panel" hidden aria-live="polite"><div class="result-heading"><h2>执行结果</h2><span id="status" class="badge"></span></div><p id="result-task" class="muted"></p><pre id="result"></pre><div id="metrics"></div><button id="copy" type="button" hidden>复制结果</button></section>
+		<footer>POWERED BY BROWSER USE <span>任务记录仅保留在当前服务会话中</span></footer>
+	</section>
+</main>
+</body></html>
